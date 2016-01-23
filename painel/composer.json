@@ -1,0 +1,26 @@
+{
+  "name": "Painel Administrativo",
+  "description": "Painel Administrativo",
+  "homepage": "http://avneto.wordpress.com/",
+  "keywords": [
+    "css",
+    "js",
+    "less",
+    "responsive",
+    "back-end",
+    "template",
+    "theme",
+    "web",
+    "admin"
+  ],
+  "authors": [
+    {
+      "name": "Anthero Vieira Neto",
+      "email": "netooo@me.com"
+    }
+  ],
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/almasaeed2010/AdminLTE/issues"
+  }
+}

@@ -1,0 +1,82 @@
+/* #008d4c */
+
+.btn-column {
+    padding: 0!important;
+}
+
+#inputImage {
+    width: 100%;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: alpha(opacity: 0);
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+#inputImageBefore {
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    min-height: 100px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #555;
+    z-index: 0;
+}
+
+#inputImage:after {
+    content: '';
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 15px;
+    right: 15px;
+    text-align: center;
+}
+
+#image-preview {
+    position: relative;
+    z-index: 1;
+    min-height: 100px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#image-preview img {
+    max-width: 100%;
+    box-shadow: 0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px;
+}
+
+#loadingImage {
+    display: none;
+}
+
+.reload-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    font-family: FontAwesome;
+    color: #f39c12;
+    font-size: 32px;
+    content: "\f1ce";
+    text-align: center;
+    display: flex!important;
+    flex-direction: column;
+    justify-content: center;
+}

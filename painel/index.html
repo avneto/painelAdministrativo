@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html ng-app="painel" ng-controller="rootCtrl">
+    <head>
+        <title>Boechat Softwares</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <base href="/teste/">
+        <meta http-equiv="content-language" content="pt-br">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Anthero Vieira Neto;">
+        <meta name="reply-to" content="netooo@me.com">
+        <meta name="generator" content="Adobe Brackets">
+        <meta name="description" content="Boechat Softwares de gestão">
+        <meta name="keywords" content="desenvolvimento, desktop, delphi, ferramentas administrativas, software, gestão">
+        
+        <link href="dep/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+        <link href="dep/bootstrap/css/bootstrap_mod.css" type="text/css" rel="stylesheet" />
+        <link href="dep/font-awesome-4.5.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="lib/css/AdminLTE.css">
+        <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+              page. However, you can choose any other skin. Make sure you
+              apply the skin class to the body tag so the changes take effect.
+        -->
+        <link rel="stylesheet" href="lib/css/skins/_all-skins.css">
+        
+        <link rel="stylesheet" href="dep/plugins/textAngular-1.4.6/textAngular.css">
+      
+        <script src="dep/plugins/pace/pace.min.js"></script>
+        <link href="dep/plugins/pace/pace.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        <link href="lib/css/login.css" type="text/css" rel="stylesheet" />
+        <link href="lib/css/dashboard.css" type="text/css" rel="stylesheet" />
+    </head>
+<!--
+  BODY TAG OPTIONS:
+  =================
+  Apply one or more of the following classes to get the
+  desired effect
+  |---------------------------------------------------------|
+  | SKINS         | skin-blue                               |
+  |               | skin-black                              |
+  |               | skin-purple                             |
+  |               | skin-yellow                             |
+  |               | skin-red                                |
+  |               | skin-green                              |
+  |---------------------------------------------------------|
+  |LAYOUT OPTIONS | fixed                                   |
+  |               | layout-boxed                            |
+  |               | layout-top-nav                          |
+  |               | sidebar-collapse                        |
+  |               | sidebar-mini                            |
+  |---------------------------------------------------------|
+  -->
+  <body class="hold-transition skin-green sidebar-mini">
+    <div class="wrapper">
+
+      <!-- Main Header -->
+      <header class="main-header" ng-class="{ 'show' : enableMenus }">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>CG</b>C</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>COGITARE</b>COM</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Reduzir/expandir Menu</span>
+          </a>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{userData.name}}</a>
+                <ul class="dropdown-menu">
+                  <li>
+                      <a href="account">Minha conta</a>
+                  </li>
+                  <li>
+                      <a href="logout">Sair</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar"  ng-class="{ 'show' : enableMenus }">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">Painel administrativo</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li ng-class="{ 'active' : getPath('home')}"><a href="home"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <li  ng-repeat="c in categories track by $index" class="treeview">
+              <a><i class="fa {{c.icon}}"></i> <span>{{c.name}}</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li ng-show="c.use_subcategories" ng-class="{ 'active' : getPath('category/'+c.id)}"><a ng-href="category/{{c.id}}">{{c.subcategories_title}}</a></li>
+                <li ng-show="c.use_items" ng-class="{ 'active' : getPath('item/'+c.id)}"><a ng-href="item/{{c.id}}">{{c.items_title}}</a></li>
+              </ul>
+            </li>
+            <li ng-class="{ 'active' : getPath('settings')}"><a href="settings"><i class="fa fa-gears"></i> <span>Configurações</span></a></li>
+          </ul><!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+        <div class="content-wrapper" ng-view>
+        </div>
+
+      <!-- Main Footer -->
+      <footer class="main-footer"  ng-class="{ 'show' : enableMenus }">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+          Desenvolvido por Anthero Vieira Neto.
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2016 <a href="#">COGITARECOM</a>.</strong> Todos os direitos reservados.
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Home tab content -->
+          <div class="tab-pane active" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p>Will be 23 on April 24th</p>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Custom Template Design
+                    <span class="label label-danger pull-right">70%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+          </div><!-- /.tab-pane -->
+          <!-- Stats tab content -->
+          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+          <!-- Settings tab content -->
+          <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+              <h3 class="control-sidebar-heading">General Settings</h3>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Report panel usage
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Some information about this general settings option
+                </p>
+              </div><!-- /.form-group -->
+            </form>
+          </div><!-- /.tab-pane -->
+        </div>
+      </aside><!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+        <!-- Páginas irão abrir nesse content-->
+        <script src="dep/angular/angular.min.js"></script>
+        <script src="dep/angular/angular-route.min.js"></script>
+        <script src="dep/angular/angular-cookies.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/helpers/uploadHelper.js"></script>
+        <script src="app/services/routes.js"></script>
+        <script src="app/services/httpService.js"></script>
+        <script src="app/services/uploadService.js"></script>
+        <script src="app/controllers/root.js"></script>
+        <script src="app/controllers/login.js"></script>
+        <script src="app/controllers/logout.js"></script>
+        <script src="app/controllers/dashboard.js"></script>
+        <script src="app/controllers/CategoryCtrl.js"></script>
+        <script src="app/controllers/SettingsCtrl.js"></script>
+        <script src="app/controllers/ItemCtrl.js"></script>
+
+        <script src="dep/plugins/textAngular-1.4.6/textAngular-rangy.min.js"></script>
+        <script src="dep/plugins/textAngular-1.4.6/textAngular-sanitize.min.js"></script>
+        <script src="dep/plugins/textAngular-1.4.6/textAngular.min.js"></script>
+        <script src="dep/plugins/textAngular-1.4.6/textAngularSetup.js"></script>
+        
+      
+    <!-- REQUIRED JS SCRIPTS -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="dep/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="dep/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="lib/js/app.min.js"></script>
+
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+  </body>
+</html>

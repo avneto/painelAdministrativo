@@ -1,0 +1,45 @@
+#login-page{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: #ecf0f5;
+}
+
+#login{
+    margin: 20vh auto;
+    float: none!important;
+}
+
+#login{
+    border: 1px solid #dfdfdf;
+    padding: 20px;
+    border-radius: 0;
+}
+
+#login .input-group-addon i{
+    width: 15px;
+}
+
+
+#login #remember,
+#login #remember *{
+    cursor: pointer;
+}
+
+#login #remember label:hover{
+    color: #0080ff;
+}
+
+#login #remember input{
+    margin-top: 5px;
+}
+
+#login #remember label{
+    font-weight: normal;
+    top: -2px;
+    padding-left: 3px;
+    position: relative;
+}

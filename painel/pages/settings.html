@@ -1,0 +1,149 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Configurações
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Configurações</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<div class="content">
+    <alerts ng-repeat="a in alert track by $index">
+      <div class="alert alert-dismissable" ng-class="a.type">
+      <button type="button" class="close" ng-click="alert.remove($index);">×</button>
+        <h4><i class="icon fa fa-bullhorn"></i> {{a.error ? 'Oh não!' : 'Sucesso!' }}</h4>
+        {{a.message}}
+      </div>
+    </alerts>
+  <!-- Your Page Content Here -->
+    <span ng-show="gm">
+        <form class="box"  
+              ng-submit="update('category', category.id)"
+                            ng-class="{'box-primary' : !category.id || category.id == '', 
+                                       'box-success' : category.id}"
+              ng-init="category.use_subcategories = 1; 
+                       category.use_items = 1;
+                       category.use_image = 1;">
+            <div class="box-header with-border">
+              <h3 class="box-title">Categorias</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+
+                <div class="form-group col-sm-3">
+                  <label class="control-label" for="descricao">Código</label>
+                    <select class="form-control" id="codigo" ng-model="select.category">
+                      <option ng-repeat="opt in categories track by $index" value="{{$index}}">{{opt.id}}</option>
+                      <option value="">Nova categoria</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-9">
+                  <label class="control-label" for="descricao">Descrição</label>
+                  <input class="form-control" id="descricao" type="text" required ng-model="category.name"
+                         oninvalid="this.setCustomValidity('Você precisa preencher esse campo!')" />
+                </div>
+                <div class="form-group col-md-6 col-lg-6 col-xs-12">
+                           <label>
+                               <input type="checkbox" ng-model="category.use_subcategories" ng-true-value="1" ng-false-value="0" /> Permite cadastrar Sub Categorias</label>
+                               <span class="pull-right hidden-xs"><input type="checkbox" ng-model="category.use_image" ng-true-value="1" ng-false-value="0" ng-model="category.use_items" /> Permite cadastrar imagem</span>
+                           <input class="form-control" type="text" 
+                                  ng-required="(category.use_subcategories == 1)"  
+                                  ng-disabled="(category.use_subcategories == 0)"
+                                  ng-model="category.subcategories_title"
+                                  oninvalid="this.setCustomValidity('Você precisa preencher esse campo!')" placeholder="Título sub categorias" />
+                        
+                </div>
+                <div class="form-group col-xs-12 hidden-sm hidden-md hidden-lg">
+                       <label><input type="checkbox" ng-model="category.use_image" ng-true-value="1" ng-false-value="0" ng-model="category.use_items" /> Permite cadastrar imagem nas Sub Categorias</label> 
+                </div>
+                <div class="form-group col-md-6 col-lg-6 col-xs-12">
+                           <label><input type="checkbox" ng-model="category.use_items" ng-true-value="1" ng-false-value="0" ng-model="category.use_items" /> Permite cadastrar Items</label>
+                           <input class="form-control" type="text" 
+                                  ng-required="(category.use_items == 1)" 
+                                  ng-disabled="(category.use_items == 0)"
+                                  ng-model="category.items_title"
+                                  oninvalid="this.setCustomValidity('Você precisa preencher esse campo!')" placeholder="Título itens" />
+                        
+                </div>
+                <div class="form-group col-md-12 col-lg-12 col-xs-12">
+                           <label>
+                               <input type="checkbox" ng-model="category.use_additionals" ng-true-value="1" ng-false-value="0" /> Permite cadastrar Tópicos</label>    
+                </div>
+                <div class="form-group col-md-12 col-lg-12 col-xs-12">
+                    <label><input type="checkbox" ng-model="category.use_additionalsitems" ng-true-value="1" ng-false-value="0" ng-model="category.use_items" /> Permite cadastrar items nos Tópicos</label>   
+                </div>
+                <div class="form-group col-md-3 col-lg-2 col-xs-6">
+                    <label>Ícone da Categoria</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" 
+                                  ng-model="category.icon" placeholder="Ícone da categoria" />
+                        <span class="input-group-addon">
+                          <i class="fa {{category.icon}}"></i>
+                        </span>   
+                        
+                    </div>
+                </div>
+                  <div class="col-md-12 col-xs-12 text-right form-group">
+                      <div class="btn-group pull-right">
+                        <button ng-show="category.id" ng-click="delete('category', category.id)" type="button" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                        <button type="submit" 
+                                class="btn btn-flat"
+                                ng-class="{'btn-primary' : !category.id || category.id == '', 
+                                           'btn-success' : category.id}">Gravar registro</button>
+                      </div>
+                  </div>
+              </div>
+            </div><!-- /.box-body -->
+        </form><!-- /.box-category -->
+    </span>
+        <form class="box"  
+              ng-submit="update('category', category.id)"
+              ng-class="{'box-primary' : !category.id || category.id == '', 
+                         'box-success' : category.id}">
+            <div class="box-header with-border">
+              <h3 class="box-title">Configurações Gerais</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="form-group col-md-3 col-xs-6">
+                  <label class="control-label" >Título do site</label>
+                    <input maxlength="20" class="form-control" ng-model="setting.head_title" /> 
+                </div>
+
+                <div class="form-group col-md-3 col-xs-6" ng-show="gm">
+                  <label class="control-label" >Título do painel</label>
+                    <input maxlength="20" class="form-control" ng-model="setting.head_title_panel" /> 
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <label class="control-label" >Palavras chave</label>
+                    <input maxlength="20" class="form-control" ng-model="setting.meta_keywords" /> 
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <label class="control-label" >Descrição <small class="text-muted"><i>( a descrição que aparece nos stes de busca )</i></small></label>
+                    <textarea maxlength="20" rows="5" class="form-control" ng-model="setting.meta_descripton"></textarea> 
+                </div>
+              </div>
+                  
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <div class="btn-group pull-right">
+                    <button type="submit" 
+                            class="btn btn-flat btn-primary">Gravar registro</button>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.box-body -->
+        </form><!-- /.box-category -->
+
+
+</div><!-- /.content -->

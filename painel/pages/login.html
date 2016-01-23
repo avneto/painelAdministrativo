@@ -1,0 +1,37 @@
+    
+<div id="login-page">
+    <div class="container">
+        <div class="row">
+            <section id="login" class="col-md-4 col-lg-3 col-xs-12 panel">
+                <form ng-submit="login()">
+                    <div class="form-group">
+                        <label for="usuario">Usuário</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-lg fa-user"></i></div>
+                            <input id="usuario" type="text" name="usuario" ng-model="usuario" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-lg fa-lock"></i></div>
+                            <input id="senha" name="senha" type="{{tipo_pwd ? 'text' : 'password'}}" ng-model="senha" class="form-control"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="tipo_pwd = !tipo_pwd"><i class="fa fa-lg fa-eye{{tipo_pwd ? '-slash' : ''}}"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="remember">
+                        <div class="col-sm-6">
+                            <input id="checkbox" ng-model="remember" type="checkbox" /> 
+                            <label for="checkbox">Lembrar de mim</label>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button type="submit" class="btn btn-success btn-flat">Entrar</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

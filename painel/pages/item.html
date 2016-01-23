@@ -1,0 +1,309 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+    {{category.items_title}}
+  </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li>{{category.name}}</li>
+        <li class="active">{{category.items_title}}</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<div class="content">
+    <alerts ng-repeat="a in alert track by $index">
+        <div class="alert alert-dismissable" ng-class="a.class">
+            <button type="button" class="close" ng-click="alert.remove($index);">×</button>
+            <h4><i class="icon fa" ng-class="a.icon"></i> {{a.type }}</h4> {{a.message}}
+        </div>
+    </alerts>
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <div class="box-title">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-flat" ng-class="{'btn-primary' : edit_mode, 'btn-default' : !edit_mode}" ng-click="listItems()"><i class="fa fa-server"></i>&nbsp;&nbsp; Lista</button>
+                    <button type="button" class="btn btn-flat" ng-class="{'btn-primary' : !edit_mode || item.id, 'btn-default' : edit_mode && !item.id}" ng-click="newItem()"><i class="fa fa-plus-square"></i>&nbsp;&nbsp; Novo</button>
+                </div>&nbsp;
+                <div class="btn-group">
+                    <button ng-show="item.id" type="button" class="btn btn-flat btn-default" ng-click="editItem(recordIndex)"><i class="fa fa-edit"></i>&nbsp;&nbsp; {{item.name}}</button>
+                    <button ng-show="item.id" type="button" class="btn btn-flat bg-gray" ng-click="clearRecord();"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <span ng-show="!edit_mode">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th width="40">#</th>
+                            <th >Nome</th>
+                            <th colspan="2">Categoria</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-muted text-right"><i>{{items.length ? items.length : 0}} registros</i></td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-repeat = "i in items track by $index">
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.category_name}}</td>
+                            <td class="btn-column">
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-flat btn-info" ng-click="editItem($index)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-flat btn-danger" ng-click="deleteItem(i.id)"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td colspan="4" ng-show="!items.length || items.length < 1" class="text-center text-muted">Ainda não existe nada cadastrado, <a href="javascript:void(0)" ng-click="newItem()">cadastre algo</a>!</td></tr>
+                    </tbody>
+                </table>
+            </span>
+
+            <form ng-show="edit_mode" ng-init="item.sequence = 0" ng-submit="updateItem()">
+                <div class="row">
+                    <div class="formo-group col-md-4">
+                        <label>Nome</label>
+                        <input type="text" ng-model="item.name" class="form-control" required set-focus="setFocus" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Categoria</label>
+                        <select class="form-control" 
+                                ng-model="item.id_subcategory" 
+                                ng-options="c.id as c.name for c in subcategories | orderBy:'name'"
+                                required>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label title="deixe 0 (zero) se quiser que o sistema se encarregue disso!">Ordem <span class="hidden-md">de exibição</span></label>
+                        <input required type="text" ng-init="item.sequence = 0" ng-model="item.sequence" class="form-control" title="deixe 0 (zero) se quiser que o sistema se encarregue disso!" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>
+                            <input type="checkbox" ng-model="item.visible" /> &nbsp; Visível no site?
+                        </label>
+                    </div>
+                </div>
+
+                <div text-angular="text-angular" name="description" ng-model="descriptions.description" ta-disabled='false'></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <button class="btn btn-success btn-flat pull-right"><i class="fa fa-save"></i>&nbsp;&nbsp; Gravar{{item.id ? ' alterações' : ''}}</button>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box-new -->
+
+    <div class="row" ng-show="item.id">
+        <div ng-show="category.use_additionals" class="col-md-6 col-sm-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        Tópicos
+                    </div>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="40">#</th>
+                                <th>Tópico</th>
+                                <th width="120">Imagem</th>
+                                <th width="45">Ordem</th>
+                                <th width="80">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-muted text-right"><i>{{items.length ? items.length : 0}} registros</i></td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <from ng-submit="updateAdditional()">
+                                    <td><b>{{addtional.id ? addtional.id : '#'}}</b></td>
+                                    <td class="btn-column">
+                                        <input type="text" class="form-control" placeholder="Descrição" ng-model="addtional.name" />
+                                    </td>
+                                    <td class="btn-column text-center">
+                                        <button class="btn btn-default btn-flat" data-toggle="modal" data-target="#AdditionalImage">Enviar imagem</button>
+                                    </td>
+                                    <td class="btn-column">
+                                        <input type="text" class="form-control" placeholder="0" ng-model="addtional.sequence" />
+                                    </td>
+                                    <td class="btn-column">
+                                        <div class="btn-group pull-right">
+                                            <button type="submit" class="btn btn-flat btn-success"><i class="fa fa-save"></i> Gravar</button>
+                                        </div>
+                                    </td>
+                                </from>
+                            </tr>
+                            <tr ng-repeat="a in additionals track by $index">
+                                <td>{{a.id}}</td>
+                                <td>{{a.name}}</td>
+                                <td><a href="javascript::">{{a.image ? 'Ver' : 'Enviar'}}</a></td>
+                                <td>{{a.sequence}}</td>
+                                <td class="btn-column">
+                                    <div class="btn-group pull-right">
+                                        <button class="btn btn-flat btn-info" ng-click="editAdditional($index)"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-flat btn-danger" ng-click="delete(i.id)"><i class="fa fa-trash-o"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="box-additional" ng-show="aditional.id && category.use_additionalitems">
+                        <h4 class="title">Tópico {{aditional.name}}</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="40">#</th>
+                                    <th>Tópico</th>
+                                    <th width="45">Ordem</th>
+                                    <th width="80">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-muted text-right"><i>{{items.length ? items.length : 0}} registros</i></td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <from ng-submit="updateAdditionalItem()">
+                                        <td><b>{{addtional_item.id ? addtional_item.id : '#'}}</b></td>
+                                        <td class="btn-column">
+                                            <input type="text" class="form-control" placeholder="Descrição" ng-model="addtional_item.name" />
+                                        </td>
+                                        <td class="btn-column">
+                                            <input type="text" class="form-control" placeholder="0" ng-model="addtional_item.sequence" />
+                                        </td>
+                                        <td class="btn-column">
+                                            <div class="btn-group pull-right">
+                                                <button type="submit" class="btn btn-flat btn-success"><i class="fa fa-save"></i> Gravar</button>
+                                            </div>
+                                        </td>
+                                    </from>
+                                </tr>
+                                <tr ng-repeat="a in additional_items track by $index">
+                                    <td>{{a.id}}</td>
+                                    <td>{{a.name}}</td>
+                                    <td>{{a.sequence}}</td>
+                                    <td class="btn-column">
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-flat btn-info" ng-click="editAdditionalItem($index)"><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-flat btn-danger" ng-click="deleteAdditionalItem(i.id)"><i class="fa fa-trash-o"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box-dexcription -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-6 col-sm-12">
+            <form class="box box-info">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        Imagens
+                    </div>
+                    <div class="box-tools pull-right">
+                        <i ng-show="loadingSequence" class="fa fa-circle-o-notch fa-spin text-muted"></i>&nbsp;&nbsp;
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row grid-images">
+                        <div class="col-md-3 col-sm-4 col-xs-6 item" ng-repeat="p in images | orderBy:'sequence' track by $index">
+                            <img ng-src="{{path_server+p.path}}" width="100%" />
+                            <div class="input-group">
+                                <input placeholder="Sequencia (0)" title="Sequencia" ng-model="p.sequence" ng-change="changeSequence($index, p)" class="form-control" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-flat btn-default" title="Remover imagem" ng-click="deleteImage(p.id)"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                            <div class="row">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        Adicionar novas imagens
+                    </div>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="loadingImage" ng-class="{'reload-image' : loadingImageBox}"><i class="fa fa-spin fa-circle-o-notch"></i></div>
+                    <div id="image-preview">
+                        <img ng-show="item.image" ng-src="{{item.image ? path_server+item.image : ''}}" />
+                    </div>
+                    <div id="inputImageBefore">Jogue uma imagem ou clique aqui</div>
+                    <input type="file" id="inputImage" file-model="image.file" media-preview ng-model="image.model">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="btn-group pull-right">
+                                <button class="btn btn-flat btn-warning" title="Enviar imagem" ng-click="upload()" ng-disabled="!item.id || !image.model">
+                                    <i class="fa fa-save"></i>&nbsp;&nbsp; Enviar imagem
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box-dexcription -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="AdditionalImage" tabindex="-1" role="dialog" aria-labelledby="AdditionalImage">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
