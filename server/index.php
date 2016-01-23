@@ -13,20 +13,20 @@ $app = new \Slim\Slim(array(
 
 # Constantes
 define("PATH", '/cogitare/server');
-define("DIR", dirname(__FILE__) . '\app');
+define("DIR", dirname(__FILE__) . '/app');
 define("UPLOAD_DIR", PATH . '/upload');
 
 # Confugaçoes
-require_once DIR . '\config\database.php';
+require_once DIR . '/config/database.php';
 
 # Helpers
-require_once DIR . '\helpers\appHelpers.php';
+require_once DIR . '/helpers/appHelpers.php';
 
 # Models
-require_once DIR . '\models\appModels.php';
+require_once DIR . '/models/appModels.php';
 
 # Controllers
-require_once DIR . '\controllers\appControllers.php';
+require_once DIR . '/controllers/appControllers.php';
 
 # Iniciar servidor
 $app->run();
