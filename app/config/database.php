@@ -1,5 +1,5 @@
 <?php
-// Database configuration
+// Configuração da conexão
 $settings = array(
   'driver'    => 'mysql',
   'host'      => 'localhost',

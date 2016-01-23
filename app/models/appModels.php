@@ -1,53 +1,82 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
+  use SoftDeletes;
   /* inherited */
 }
 
-class Adicional extends Model
+class Additional extends Model
 {
-  protected $table = 'adicionais';
+  use SoftDeletes;
+  /* inherited */
+  
 }
 
-class AdicionalItem extends Model
+class AdditionalItem extends Model
 {
-  protected $table = 'adicionais_itens';
-}
-
-class Imagem extends Model
-{
-  protected $table = 'imagens';
-}
-
-class Categoria extends Model
-{
+  use SoftDeletes;
   /* inherited */
 }
 
-class SubCategoria extends Model
+class Image extends Model
 {
-  protected $table = 'sub_categorias';
-}
-
-class Descricao extends Model
-{
-  protected $table = 'descricao';
-}
-
-class Usuario extends Model
-{
+  use SoftDeletes;
   /* inherited */
 }
 
-class GrupoUsuario extends Model
+class Category extends Model
 {
-  protected $table = 'grupo_usuarios';
+  use SoftDeletes;
+  /* inherited */
+  
+//  protected $table = 'categories'; 
 }
 
-class Permissao extends Model
+class SubCategory extends Model
 {
-  protected $table = 'permissoes';
+  use SoftDeletes;
+  /* inherited */
+  
+//  protected $table = 'subcategories'; 
+}
+
+class Description extends Model
+{
+  use SoftDeletes;
+  /* inherited */
+}
+
+class User extends Model
+{
+  use SoftDeletes;
+  
+  /* inherited */
+}
+
+class UserGroup extends Model
+{
+  use SoftDeletes;
+  /* inherited */
+}
+
+class Permission extends Model
+{
+  use SoftDeletes;
+  /* inherited */
+}
+
+class Access extends Model
+{
+  use SoftDeletes;
+  /* inherited */
+}
+
+class Setting extends Model
+{
+  use SoftDeletes;
+  /* inherited */
 }

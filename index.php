@@ -2,6 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+date_default_timezone_set('America/Sao_Paulo');
 
 require 'vendor/autoload.php';
 
@@ -11,7 +12,9 @@ $app = new \Slim\Slim(array(
 
 
 # Constantes
+define("PATH", '/cogitare/server');
 define("DIR", dirname(__FILE__) . '\app');
+define("UPLOAD_DIR", PATH . '/upload');
 
 # Confugaçoes
 require_once DIR . '\config\database.php';
