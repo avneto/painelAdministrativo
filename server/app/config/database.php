@@ -2,10 +2,10 @@
 // Configuração da conexão
 $settings = array(
   'driver'    => 'mysql',
-  'host'      => 'localhost',
-  'database'  => 'boechat',
-  'username'  => 'boechat',
-  'password'  => 'EJMq6NBBr8GpMnu5',
+  'host'      => 'mysql.hostinger.com.br',
+  'database'  => 'u220062478_panel',
+  'username'  => 'u220062478_panel',
+  'password'  => '1#q5rWS?up',
   'charset'   => 'utf8',
   'collation' => 'utf8_unicode_ci',
   'prefix'    => ''
